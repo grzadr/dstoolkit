@@ -6,7 +6,11 @@ Vector = List[float]
 import pandas as pd
 from pandas import DataFrame as dt
 
-def describe_data(dataframe: dt, describe:bool=True, counts:bool=True, percentiles:Vector = [0.01, 0.05, 0.10, 0.25, 0.50, 0.75, 0.90, 0.95, 0.99]):
+def describe_data(dataframe: dt,
+                  describe:bool=True,
+                  counts:bool=True,
+                  head:bool=True,
+                  percentiles:Vector = [0.01, 0.05, 0.10, 0.25, 0.50, 0.75, 0.90, 0.95, 0.99]):
     
     print("Basic information:")
     print(dataframe.info())
@@ -21,4 +25,9 @@ def describe_data(dataframe: dt, describe:bool=True, counts:bool=True, percentil
     if describe:
         print("Description:")
         print(dataframe.describe(percentiles=percentiles))
-        print() 
+        print()
+
+    if head:
+        print(dataframe.head())
+        print()
+
