@@ -10,5 +10,5 @@ setup(name='dstoolkit',
       author='Adrian Grzemski',
       author_email='adrian.grzemski@gmail.com',
       license='LGPL3.0',
-      packages=['describe'],
+      packages=['dstoolkit'],
       zip_safe=False)
