@@ -1,30 +1,37 @@
 #!/env/bin/python3
 
-from collections import defaultdict 
+# import pandas as pd
+from pandas import DataFrame as df
+from collections import defaultdict
 from typing import List
+
+import pandas
+
+
 Vector = List[float]
 
-import pandas as pd
-from pandas import DataFrame as df
 
 def split_columns_by_type(dataframe: df):
     result = defaultdict(list)
     for name, dtype in dataframe.dtypes.iteritems():
         result[dtype.name].append(name)
-    
     return result
+
 
 def count_na(dataframe: df):
     return dataframe.isna().sum()
 
-def describe_data(dataframe: df,
-                  describe:bool=True,
-                  counts:bool=True,
-                  head:bool=True,
-                  missing=True,
-                  memory=False,
-                  percentiles:Vector = [0.01, 0.05, 0.10, 0.25, 0.50, 0.75, 0.90, 0.95, 0.99]):
-    
+
+def describe_data(
+    dataframe: df,
+    describe: bool = True,
+    counts: bool = True,
+    head: bool = True,
+    missing=True,
+    memory=False,
+    percentiles: Vector = [0.01, 0.05, 0.10, 0.25, 0.50, 0.75, 0.90, 0.95, 0.99],
+):
+
     print("Shape:", dataframe.shape)
     print(f"Names: {'|'.join(dataframe.columns)}")
     columns_dtypes = split_columns_by_type(dataframe)
@@ -35,7 +42,7 @@ def describe_data(dataframe: df,
     print("Information:")
     print(dataframe.info())
     print()
-    
+
     if missing:
         print("Missing:")
         print(count_na(dataframe))
@@ -43,10 +50,10 @@ def describe_data(dataframe: df,
 
     if counts:
         print("Value Counts:")
-        for column in dataframe.select_dtypes(include='object').columns:
+        for column in dataframe.select_dtypes(include="object").columns:
             print(dataframe[column].value_counts())
         print()
-        
+
     if describe:
         print("Description:")
         print(dataframe.describe(percentiles=percentiles))
@@ -60,5 +67,3 @@ def describe_data(dataframe: df,
     if head:
         print(dataframe.head())
         print()
-
-
